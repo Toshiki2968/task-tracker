@@ -1,0 +1,14 @@
+C:\Users\toshiki.sumiya\Desktop\taskTracker\bin\Debug\net8.0\taskTracker.exe
+C:\Users\toshiki.sumiya\Desktop\taskTracker\bin\Debug\net8.0\taskTracker.deps.json
+C:\Users\toshiki.sumiya\Desktop\taskTracker\bin\Debug\net8.0\taskTracker.runtimeconfig.json
+C:\Users\toshiki.sumiya\Desktop\taskTracker\bin\Debug\net8.0\taskTracker.dll
+C:\Users\toshiki.sumiya\Desktop\taskTracker\bin\Debug\net8.0\taskTracker.pdb
+C:\Users\toshiki.sumiya\Desktop\taskTracker\obj\Debug\net8.0\taskTracker.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\toshiki.sumiya\Desktop\taskTracker\obj\Debug\net8.0\taskTracker.AssemblyInfoInputs.cache
+C:\Users\toshiki.sumiya\Desktop\taskTracker\obj\Debug\net8.0\taskTracker.AssemblyInfo.cs
+C:\Users\toshiki.sumiya\Desktop\taskTracker\obj\Debug\net8.0\taskTracker.csproj.CoreCompileInputs.cache
+C:\Users\toshiki.sumiya\Desktop\taskTracker\obj\Debug\net8.0\taskTracker.dll
+C:\Users\toshiki.sumiya\Desktop\taskTracker\obj\Debug\net8.0\refint\taskTracker.dll
+C:\Users\toshiki.sumiya\Desktop\taskTracker\obj\Debug\net8.0\taskTracker.pdb
+C:\Users\toshiki.sumiya\Desktop\taskTracker\obj\Debug\net8.0\taskTracker.genruntimeconfig.cache
+C:\Users\toshiki.sumiya\Desktop\taskTracker\obj\Debug\net8.0\ref\taskTracker.dll
