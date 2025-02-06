@@ -1,9 +1,18 @@
-- 基本コマンド
-  - task-cli
+# 新しいタスクを追加
+add "Buy groceries"
 
-- タスクの作成
-  - task-cli add "Buy apple"
-- タスクの更新
-  - task-cli update 1 "Buy banana"
-- タスクの削除
-  - task-cli delete 1# task-tracker
+# タスクを更新・削除
+update 1 "Buy groceries and cook dinner"
+delete 1
+
+# タスクのステータスを更新
+mark-in-progress 1
+mark-done 1
+
+# すべてのタスクを表示
+list
+
+# ステータスごとのタスクを表示
+list done
+list todo
+list in-progress
