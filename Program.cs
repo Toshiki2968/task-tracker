@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using System.Text.Json;
 using TaskTracker.Interfaces;
 using TaskTracker.Services;
 
@@ -14,10 +13,6 @@ var command = Console.ReadLine();
 
 if (command == null) return;
 var commands = command.Split(" ");
-
-// JSON読み込み
-string filePath = "task.json";
-List<Task> tasks = LoadJson(filePath);
 
 switch (commands[0])
 {
@@ -87,29 +82,6 @@ switch (commands[0])
         break;
     default:
         return;
-}
-
-SaveJson(filePath, tasks);
-
-
-List<Task> LoadJson(string filePath)
-{
-    if (!File.Exists(filePath))
-    {
-        // jsonファイルを作成
-        File.WriteAllText(filePath, "[]");
-    }
-    string json = File.ReadAllText(filePath);
-
-    // JSONからオブジェクトへデシリアライズ
-    return JsonSerializer.Deserialize<List<Task>>(json) ?? new List<Task>();
-}
-
-void SaveJson(string filePath, List<Task> tasks)
-{
-    // オブジェクトからJSONへシリアライズ
-    string json = JsonSerializer.Serialize(tasks, new JsonSerializerOptions { WriteIndented = true });
-    File.WriteAllText(filePath, json);
 }
 
 static void ConfigureServices(IServiceCollection services)
