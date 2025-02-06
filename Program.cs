@@ -1,4 +1,13 @@
-﻿using System.Text.Json;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System.Text.Json;
+using TaskTracker.Interfaces;
+using TaskTracker.Services;
+
+// サービスのDI登録
+var serviceCollection = new ServiceCollection();
+ConfigureServices(serviceCollection);
+var serviceProvider = serviceCollection.BuildServiceProvider();
+var _taskService = serviceProvider.GetService<ITaskService>();
 
 Console.WriteLine("コマンドを入力してください");
 var command = Console.ReadLine();
@@ -13,87 +22,64 @@ List<Task> tasks = LoadJson(filePath);
 switch (commands[0])
 {
     case "add":
-        int newId = GetNextId(tasks);
-        var newTask = new Task
-            {
-                Id = newId,
-                Description = commands[1].Replace("\"", ""),
-                Status = Status.Todo,
-                CreatedAt = DateTime.Now,
-                UpdatedAt =  DateTime.Now
-            };
-        tasks.Add(newTask);
-        Console.WriteLine("タスクを追加しました");
+        _taskService?.AddTask(commands[1].Replace("\"", ""));
         break;
     case "update":
-        var target = tasks.Find((task) => task.Id.ToString() == commands[1]);
-        if (target == null)
-        {
-            Console.WriteLine("タスクが見つかりませんでした");
-            return;
-        }
-        target.Description = commands[2].Replace("\"","");
-        Console.WriteLine("タスクを更新しました");
+        Int32.TryParse(commands[1], out var updateTaskId);
+        if (updateTaskId == 0) return;
+        _taskService?.UpdateTask(updateTaskId, commands[1].Replace("\"", ""));
         break;
     case "delete":
-        tasks.RemoveAll((task) => task.Id.ToString() == commands[1]);
-        Console.WriteLine("タスクを削除しました");
+        Int32.TryParse(commands[1], out var deleteTaskId);
+        if (deleteTaskId == 0) return;
+        _taskService?.DeleteTask(deleteTaskId);
         break;
     case "mark-in-progress":
-        var targetMarkInProgress = tasks.Find((task) => task.Id.ToString() == commands[1]);
-        if (targetMarkInProgress == null)
-        {
-            Console.WriteLine("タスクが見つかりませんでした");
-            return;
-        }
-        targetMarkInProgress.Status = Status.InProgress;
-        Console.WriteLine("タスクを進行中へ変更しました");
+        Int32.TryParse(commands[1], out var updateProgressTaskId);
+        if (updateProgressTaskId == 0) return;
+        _taskService?.SetStatus(Status.InProgress, updateProgressTaskId);
         break;
     case "mark-done":
-        var targetMarkDone = tasks.Find((task) => task.Id.ToString() == commands[1]);
-        if (targetMarkDone == null)
-        {
-            Console.WriteLine("タスクが見つかりませんでした");
-            return;
-        }
-        targetMarkDone.Status = Status.Done;
-        Console.WriteLine("タスクを完了へ変更しました");
+        Int32.TryParse(commands[1], out var updateDoneTaskId);
+        if (updateDoneTaskId == 0) return;
+        _taskService?.SetStatus(Status.Done, updateDoneTaskId);
         break;
     case "list":
         if (commands.Count() == 1)
         {
-            foreach (var task in tasks)
+            var allTasks = _taskService?.GetAllTasks();
+            if (allTasks == null) return;
+            foreach (var task in allTasks)
             {
                 Console.WriteLine(task.Description);
             }
-            Console.WriteLine("すべてのタスクを表示しました"); 
             return;
         }
         switch (commands[1])
         {
             case "done":
-                foreach (var task in tasks)
+                var doneTasks = _taskService?.GetTaskByStatus(Status.Done);
+                if (doneTasks == null) return;
+                foreach (var task in doneTasks)
                 {
-                    if (!(task.Status == Status.Done)) continue;
                     Console.WriteLine(task.Description);
                 }
-                Console.WriteLine("完了済みのタスクを表示しました");
                 break;
             case "todo":
-                foreach (var task in tasks)
+                var todoTasks = _taskService?.GetTaskByStatus(Status.Todo);
+                if (todoTasks == null) return;
+                foreach (var task in todoTasks)
                 {
-                    if (!(task.Status == Status.Todo)) continue;
                     Console.WriteLine(task.Description);
                 }
-                Console.WriteLine("新しいタスクを表示しました");
                 break;
             case "in-progress":
-                foreach (var task in tasks)
+                var progressTasks = _taskService?.GetTaskByStatus(Status.InProgress);
+                if (progressTasks == null) return;
+                foreach (var task in progressTasks)
                 {
-                    if (!(task.Status == Status.InProgress)) continue;
                     Console.WriteLine(task.Description);
                 }
-                Console.WriteLine("実行中のタスクを表示しました");
                 break;
             default:
                 break;
@@ -122,12 +108,12 @@ List<Task> LoadJson(string filePath)
 void SaveJson(string filePath, List<Task> tasks)
 {
     // オブジェクトからJSONへシリアライズ
-    string json = JsonSerializer.Serialize(tasks, new JsonSerializerOptions{WriteIndented = true});
+    string json = JsonSerializer.Serialize(tasks, new JsonSerializerOptions { WriteIndented = true });
     File.WriteAllText(filePath, json);
 }
 
-// 一意のIDを取得
-static int GetNextId(List<Task> tasks)
+static void ConfigureServices(IServiceCollection services)
 {
-    return tasks.Count > 0 ? tasks[^1].Id + 1 : 1; // 最後のID + 1、リストが空の場合は1
+    // Register services here
+    services.AddSingleton<ITaskService, TaskService>();
 }

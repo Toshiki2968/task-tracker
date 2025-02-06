@@ -12,3 +12,8 @@ C:\Users\toshiki.sumiya\Desktop\taskTracker\obj\Debug\net8.0\refint\taskTracker.
 C:\Users\toshiki.sumiya\Desktop\taskTracker\obj\Debug\net8.0\taskTracker.pdb
 C:\Users\toshiki.sumiya\Desktop\taskTracker\obj\Debug\net8.0\taskTracker.genruntimeconfig.cache
 C:\Users\toshiki.sumiya\Desktop\taskTracker\obj\Debug\net8.0\ref\taskTracker.dll
+C:\Users\toshiki.sumiya\Desktop\taskTracker\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\toshiki.sumiya\Desktop\taskTracker\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\toshiki.sumiya\Desktop\taskTracker\obj\Debug\net8.0\taskTracker.csproj.AssemblyReference.cache
+C:\Users\toshiki.sumiya\Desktop\taskTracker\obj\Debug\net8.0\taskTracker.sourcelink.json
+C:\Users\toshiki.sumiya\Desktop\taskTracker\obj\Debug\net8.0\taskTrac.2FE923B9.Up2Date
